@@ -9,7 +9,7 @@ class SearchController < ApplicationController
         previous_id = nil
         (1..Random.rand(15)).each do |comment_index|
           id = Random.rand(999999999)
-          comment = { :id => id, :comment_id => previous_id, :content => "This is comment ##{comment_index}." }
+          comment = { :id => id, :comment_id => previous_id, :sm_type => Random.rand(3) ,:content => "This is comment ##{comment_index}." }
           conversation << { :comment => comment }
           previous_id = id
         end
