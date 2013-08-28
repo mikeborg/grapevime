@@ -1,6 +1,10 @@
 Grapevime::Application.routes.draw do
 
-  resources :search
+  resources :search do
+    collection do
+      get 'test'
+    end
+  end
   resources :comments
   
   # The priority is based upon order of creation: first created -> highest priority.

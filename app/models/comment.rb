@@ -20,7 +20,7 @@ class Comment < ActiveRecord::Base
       RANK
       #ts_rank(to_tsvector(attags.tag), plainto_tsquery(#{sanitize(query)})) +
       #ts_rank(to_tsvector(hashtags.tag), plainto_tsquery(#{sanitize(query)}))
-      where("to_tsvector('english', message) @@ plainto_tsquery('english', :q)", q: query).order("#{rank} desc")  
+      where(:comment_id => nil).where("to_tsvector('english', message) @@ plainto_tsquery('english', :q)", q: query).order("#{rank} desc").limit(8)  
     else
       scoped
     end

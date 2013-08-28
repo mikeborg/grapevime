@@ -1,4 +1,30 @@
 class SearchController < ApplicationController
+  #before_action :set_comment, only: [:test]
+  
+  def test
+    comments = Comment.search_text("#NBAFinals")
+    conversations = []
+    (0..5).each do |i| #around the circle
+      conversation = []
+      conversation << comments[i]
+      
+      comment = comments[i].comments[0]
+      conversation << comment
+      (1..6).each do |j| #out from the center
+        comment = comment.comments[0]
+        conversation << comment
+      end
+      conversations << conversation
+    end
+    conversations
+    
+    respond_to do |format|
+      
+      format.json { render :json => { :conversations => conversations } }
+    end
+      
+  end
+  
   def index
     
     respond_to do |format|
@@ -113,4 +139,13 @@ class SearchController < ApplicationController
       format.json { render :json => response }
     end
   end
+  
+  private
+    def set_comment
+      @comments = Comment.search_text(search_params[:terms])
+    end
+    
+    def search_params
+      params.require(:search).permit(:terms)
+    end
 end

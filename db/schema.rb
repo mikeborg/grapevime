@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20130825192610) do
 
   create_table "comments", force: true do |t|
     t.integer  "comment_id"
+    t.integer  "popularity"
     t.string   "message"
     t.string   "source_data"
     t.string   "sm_type"
