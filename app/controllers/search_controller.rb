@@ -5,16 +5,18 @@ class SearchController < ApplicationController
     comments = Comment.search_text("#NBAFinals")
     conversations = []
     (0..5).each do |i| #around the circle
-      conversation = []
-      conversation << comments[i]
+      unless comments[i].nil?
+        conversation = []
+        conversation << comments[i]
       
-      comment = comments[i].comments[0]
-      conversation << comment
-      (1..6).each do |j| #out from the center
-        comment = comment.comments[0]
+        comment = comments[i].comments[0]
         conversation << comment
+        (1..6).each do |j| #out from the center
+          comment = comment.comments[0]
+          conversation << comment
+        end
+        conversations << conversation
       end
-      conversations << conversation
     end
     conversations
     
