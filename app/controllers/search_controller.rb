@@ -2,7 +2,8 @@ class SearchController < ApplicationController
   #before_action :set_comment, only: [:test]
   
   def test
-    comments = Comment.search_text("#NBAFinals")
+    puts params[:q]
+    comments = Comment.search_text(params[:q])
     conversations = []
     (0..5).each do |i| #around the circle
       unless comments[i].nil?
