@@ -81,9 +81,9 @@ end
 quaternary_comments = []
 tertiary_comments.each do |tertiary_comment|
   comment_array = tertiary_comment.comments.create([
-    {message: "This is a quaternary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-    {message: "This is a quaternary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-    {message: "This is a quaternary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
+    {message: "This is a quadernary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+    {message: "This is a quadernary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+    {message: "This is a quadernary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
   comment_array.each do |comment|
     comment.hashtags << tertiary_comment.hashtags.first
     comment.save

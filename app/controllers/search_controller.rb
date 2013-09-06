@@ -3,19 +3,54 @@ class SearchController < ApplicationController
   
   def test
     puts params[:q]
-    comments = Comment.search_text(params[:q])
+    comments = Comment.search_text(params[:q]) #finds primary comments (where comment_id is nil)
     conversations = []
-    (0..5).each do |i| #around the circle
+    (0..7).each do |i| #each branch
       unless comments[i].nil?
         conversation = []
-        conversation << comments[i]
-      
-        comment = comments[i].comments[0]
-        conversation << comment
-        (1..6).each do |j| #out from the center
-          comment = comment.comments[0]
-          conversation << comment
+        conversation << comments[i] #store primary comment
+        secondary_comments = [comments[i].comments[0], comments[i].comments[1]] #grab 2 secondary comments
+        conversation << secondary_comments #store 2 secondary comments in conversation
+        
+        tertiary_comments = [] #handle tertiary comments
+        secondary_comments.each do |sc|
+          tertiary_comments << sc.comments[0] #grab 2 tertiary comments from each secondary comments
+          tertiary_comments << sc.comments[1]
         end
+        conversation << tertiary_comments
+        
+        quadernary_comments = [] #handle quadernary comments
+        tertiary_comments.each do |tc|
+          quadernary_comments << tc.comments[0] #grab 2 quadernary comments from each tertiary comments
+          quadernary_comments << tc.comments[1]
+        end
+        conversation << quadernary_comments
+        
+        quinary_comments = [] #handle quinary comments
+        quadernary_comments.each do |qc|
+          quinary_comments << qc.comments[0]
+          quinary_comments << qc.comments[1]
+        end
+        conversation << quinary_comments
+        
+        senary_comments = [] #handle senary comments
+        quinary_comments.each do |qc|
+          senary_comments << qc.comments[0]
+          senary_comments << qc.comments[1]
+        end
+        conversation << senary_comments
+        
+        septenary_comments = []
+        senary_comments.each do |sc|
+          septenary_comments << sc.comments[0]
+          septenary_comments << sc.comments[1]
+        end
+        conversation << septenary_comments
+        #(1..6).each do |j| #out from the center
+          #comment = comment.comments[0]
+          #conversation << comment
+          
+        #end
         conversations << conversation
       end
     end
