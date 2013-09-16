@@ -3,8 +3,10 @@ class Comment < ActiveRecord::Base
   has_many :comments
   has_many :attags_comments
   has_many :hashtags_comments
-  has_many :attags, :through => :attags_comments
-  has_many :hashtags, :through => :hashtags_comments
+  has_many :attags, -> { distinct }, through: :attags_comments
+  has_many :hashtags, -> { distinct }, through: :hashtags_comments
+  
+  before_save :parse_and_associate_tags
   
   include PgSearch
   pg_search_scope :search, against: [:message],
@@ -23,6 +25,22 @@ class Comment < ActiveRecord::Base
       where(:comment_id => nil).where("to_tsvector('english', message) @@ plainto_tsquery('english', :q)", q: query).order("#{rank} desc").limit(8)  
     else
       scoped
+    end
+  end
+  
+  # !!! eventually parse message for tags client-side !!!
+  def parse_and_associate_tags
+    attags = self.message.scan(/@\S+/)
+    attags.each do |tag|
+      #check for existing association
+      attag = Attag.find_or_initialize_by_tag(tag[1..-1])
+      self.attags << attag
+    end
+    
+    hashtags = self.message.scan(/#\S+/)
+    hashtags.each do |tag|
+      hashtag = Hashtag.find_or_initialize_by_tag(tag[1..-1])
+      self.hashtags << hashtag
     end
   end
   

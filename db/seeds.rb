@@ -6,32 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-sm_array = ["grapevime", "twitter", "facebook"]
 
-["BostonBomber", "NBAFinals", "TheBachelor"].each do |hashtag|
-  Hashtag.create({tag: hashtag})
-end
-hashtags = Hashtag.all
+hashtags = ['#NBAFinals', '#BostonBombing', "#TheBachelor"]
+sm_array = ['grapevime', 'twitter', 'facebook']
 
 primary_comments = Comment.create([
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
@@ -43,14 +22,25 @@ primary_comments = Comment.create([
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
-
-primary_comments.each do |comment|
-  hashtag = hashtags.sample
-  comment.hashtags << hashtag
-  comment.message += (" ##{hashtag.tag}")
-  comment.save
-end
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
 
 secondary_comments = []
 primary_comments.each do |primary_comment|
@@ -59,7 +49,6 @@ primary_comments.each do |primary_comment|
     {message: "This is a secondary comment. ##{primary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a secondary comment. ##{primary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
   comment_array.each do |comment|
-    comment.hashtags << primary_comment.hashtags.first
     comment.save
     secondary_comments << comment
   end
@@ -72,7 +61,6 @@ secondary_comments.each do |secondary_comment|
     {message: "This is a tertiary comment. ##{secondary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a tertiary comment. ##{secondary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
   comment_array.each do |comment|
-    comment.hashtags << secondary_comment.hashtags.first
     comment.save
     tertiary_comments << comment
   end
@@ -85,7 +73,6 @@ tertiary_comments.each do |tertiary_comment|
     {message: "This is a quadernary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a quadernary comment. ##{tertiary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
   comment_array.each do |comment|
-    comment.hashtags << tertiary_comment.hashtags.first
     comment.save
     quaternary_comments << comment
   end
@@ -98,7 +85,6 @@ quaternary_comments.each do |quaternary_comment|
     {message: "This is a quinary comment. ##{quaternary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a quinary comment. ##{quaternary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])    
     comment_array.each do |comment|
-      comment.hashtags << quaternary_comment.hashtags.first
       comment.save
       quinary_comments << comment
     end
@@ -111,7 +97,6 @@ quinary_comments.each do |quinary_comment|
     {message: "This is a senary comment. ##{quinary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a senary comment. ##{quinary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
     comment_array.each do |comment|
-      comment.hashtags << quinary_comment.hashtags.first
       comment.save
       senary_comments << comment
     end
@@ -124,7 +109,6 @@ senary_comments.each do |senary_comment|
     {message: "This is a septenary comment. ##{senary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
     {message: "This is a septenary comment. ##{senary_comment.hashtags.first.tag}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
     comment_array.each do |comment|
-      comment.hashtags << senary_comment.hashtags.first
       comment.save
       septenary_comments << comment
     end
