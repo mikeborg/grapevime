@@ -29,21 +29,18 @@ class SearchController < ApplicationController
         quinary_comments = [] #handle quinary comments
         quadernary_comments.each do |qc|
           quinary_comments << qc.comments[0]
-          quinary_comments << qc.comments[1]
         end
         conversation << quinary_comments
         
         senary_comments = [] #handle senary comments
         quinary_comments.each do |qc|
           senary_comments << qc.comments[0]
-          senary_comments << qc.comments[1]
         end
         conversation << senary_comments
         
         septenary_comments = []
         senary_comments.each do |sc|
           septenary_comments << sc.comments[0]
-          septenary_comments << sc.comments[1]
         end
         conversation << septenary_comments
         #(1..6).each do |j| #out from the center
