@@ -1,0 +1,33 @@
+#simple-index
+  %div{'ng-controller' => "SearchCtrl"}
+    #conversations-container
+      .conversation-box{'ng-repeat' => 'primary_comment in conversations.slice(0,5)'}
+      
+        .comment
+          .message
+            {{primary_comment.message}} {{primary_comment.id}}
+          .footer
+            %img.like{'src' => '/assets/like-icon.png'}
+            %img.reply{'src' => '/assets/reply-icon.png'}
+          .header
+            %a.boxclose{'ng-click' => 'closeComment(primary_comment)'}
+            
+          .comment
+            .message
+              {{primary_comment.comments[0].message}} {{primary_comment.comments[0].id}}
+            .footer
+              %img.like{'src' => '/assets/like-icon.png'}
+              %img.reply{'src' => '/assets/reply-icon.png'}
+            .header
+              %a.boxclose{'ng-click' => 'closeComment(primary_comment.comments[0])'}
+          
+            .comment
+              .message
+                {{primary_comment.comments[0].comments[0].message}} {{primary_comment.comments[0].comments[0].id}}
+              .footer
+                %img.like{'src' => '/assets/like-icon.png'}
+                %img.reply{'src' => '/assets/reply-icon.png'}
+              .header
+                %a.boxclose{'ng-click' => 'closeComment(activeComment(primary_comment.comments[0].comments[0]))'}
+
+            

@@ -1,0 +1,47 @@
+// Place all the styles related to the simple controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#simple-index {
+  #conversations-container {
+    .conversation-box {
+      display: inline-block;
+      width: 220px;
+      border-left: 1px solid black;
+      .comment {
+        .header {
+          height: 15px;
+          a.boxclose{
+            display: inline-block;
+            float:right;
+            margin-top:2px;
+            margin-right:2px;
+            cursor:pointer;
+            color: #fff;
+            border: 1px solid #AEAEAE;
+            border-radius: 30px;
+            background: #605F61;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 0px;
+            padding:8px 3px 8px 3px;
+          }
+          .boxclose:before {
+              content: "×";
+          }
+        }
+        .message {
+          
+        }
+        .footer {
+          height: 20px;
+          background-color: #f7f7f7;
+          .reply {
+            height: 30px;
+            width: 30px;
+            margin: -20px 0 -10px 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -35,12 +35,12 @@ primary_comments = Comment.create([
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
+  {message: "This is a primary comment. #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+  {message: "This is a primary comment. #{hashtags.sample} #{hashtags.sample} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)}])
 
 secondary_comments = []
 primary_comments.each do |primary_comment|

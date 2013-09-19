@@ -1,11 +1,18 @@
 Grapevime::Application.routes.draw do
 
+  resources :simple
   resources :search do
     collection do
       get 'test'
     end
   end
   resources :comments
+  
+  scope :api do 
+    get "/search(.:format)" => "search#index"
+  end
+  
+  root to: "simple#index"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
