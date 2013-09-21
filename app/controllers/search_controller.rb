@@ -60,18 +60,9 @@ class SearchController < ApplicationController
   end
   
   def index
-    
-    #puts Comment.joins(:hashtags).where(comment_id: nil, hashtags: {id: 1}).limit(2).to_json(:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )
-    #conversations = Comment.search_comments("BostonBombing")
-    #puts conversations.inspect
-    #puts "JSON: #{JSON.generate(conversations)}"
-    #puts render json: Hashtag.all
-    #puts conversations
+    hashtags = Hashtag.search_tags(params[:q])
     respond_to do |format|
-      #format.json { render json: conversations.to_json}
-      #format.json { render :partial => "/search/index.json" }
-      
-      format.json { render json: Comment.joins(:hashtags).where(comment_id: nil, hashtags: {id: 1}).to_json(:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
+      format.json { render json: Comment.joins(:hashtags).where(comment_id: nil, hashtags: {id: hashtags.first}).to_json(:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
     end
   end
   

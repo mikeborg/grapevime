@@ -1,11 +1,16 @@
 App.directive "vime", ($compile) ->
   restrict: "E"
-  controller: "SearchCtrl"
+  controller: "SimpleCtrl"
   scope:
     comment: "="
-  template: "<div class='header'><a class='boxclose' ng-click=\"closeComment($parent.comment)\"></a></div>" +
+    index: "="
+    conversations: "="
+  template: "<div class='header'><a class='boxclose' ng-click=\"closeComment(comment, $parent.comment, index)\"></a></div>" +
             "<div class='body'>{{ comment.message }} {{comment.id}}</div>" +
-            "<div class='footer'><img class='reply' src='/assets/reply-icon.png'></div>" +
+            "<div class='footer'>" +
+              "<img src='/assets/like-icon.png' class='like' ng-click='like(comment)' />" +
+              "<img src='/assets/reply-icon.png' class='reply' ng-click='reply(comment)'>" +
+              "<img src='/assets/menu-icon.png' class='menu' ng-click='menu(comment)'></div>" +
             "<vime ng-repeat=\"child in comment.comments.slice(0,1)\" comment=\"child\"></vime>"
   compile: (tElement, tAttr) ->
     contents = tElement.contents().remove()

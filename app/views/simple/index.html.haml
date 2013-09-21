@@ -1,14 +1,8 @@
 #simple-index
   %div{'ng-controller' => "SearchCtrl"}
+    %form{'name' => 'subimty'}
+      %input{'name' => 'input', 'ng-model' => "query"}
+      %input{'type' => 'submit', 'ng-click' => 'search()'}
     #conversations-container
-      .conversation-box{'ng-repeat' => 'primary_comment in conversations.slice(0,4)'}
-        %vime{'comment' => 'primary_comment'}
-        
-        / .comment
-        /   .message
-        /     {{primary_comment.message}} {{primary_comment.id}}
-        /   .footer
-        /     %img.like{'src' => '/assets/like-icon.png'}
-        /     %img.reply{'src' => '/assets/reply-icon.png'}
-        /   .header
-        /     %a.boxclose{'ng-click' => 'closeComment(primary_comment)'}
+      .conversation-box{'ng-repeat' => 'primaryComment in conversations.slice(0,5)'}
+        %vime{'comment' => 'primaryComment', 'index' => '$index', 'conversations' => 'conversations'}

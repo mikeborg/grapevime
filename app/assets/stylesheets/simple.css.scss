@@ -6,7 +6,7 @@
     .conversation-box {
       display: inline-block;
       width: 220px;
-      border-left: 1px solid black;
+      border-left: 1px solid #ddd;
       vime {
         .header {
           height: 15px;
@@ -32,12 +32,23 @@
         .message {
         }
         .footer {
-          height: 20px;
+          height: 25px;
           background-color: #f7f7f7;
+          .like {
+            width: 20px;
+            height: 20px;
+            border: 0px;
+            margin: 3px 10px 0px 30px;
+          }
+          .menu {
+            height: 40px;
+            width: 40px;
+            margin: -20px 20px -10px 20px;
+          }
           .reply {
-            height: 30px;
-            width: 30px;
-            margin: -20px 0 -10px 0;
+            height: 40px;
+            width: 40px;
+            margin: -20px 11px -10px 29px;
           }
         }
       }
