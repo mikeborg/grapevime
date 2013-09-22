@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922013556) do
+ActiveRecord::Schema.define(version: 20130825192610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,15 +33,15 @@ ActiveRecord::Schema.define(version: 20130922013556) do
   create_table "comments", force: true do |t|
     t.integer  "comment_id"
     t.integer  "popularity"
-    t.string   "message"
+    t.text     "message"
     t.string   "source_data"
     t.string   "sm_type"
+    t.integer  "closes"
+    t.integer  "likes"
+    t.integer  "reports"
+    t.integer  "views"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "gv_likes"
-    t.integer  "likes"
-    t.integer  "closes"
-    t.integer  "reports"
   end
 
   create_table "hashtags", force: true do |t|

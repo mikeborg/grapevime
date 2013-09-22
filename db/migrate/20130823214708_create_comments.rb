@@ -4,10 +4,13 @@ class CreateComments < ActiveRecord::Migration
       #enable_extension "hstore"
       t.belongs_to :comment
       t.integer :popularity
-      t.string :message
+      t.text :message
       t.string :source_data
       t.string :sm_type
-      t.integer :gv_likes
+      t.integer :closes
+      t.integer :likes
+      t.integer :reports
+      t.integer :views
       
       t.timestamps
     end
