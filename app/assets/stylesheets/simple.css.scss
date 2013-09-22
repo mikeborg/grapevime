@@ -2,11 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #simple-index {
+  #search {
+    margin-bottom: 5px;
+  }
   #conversations-container {
     .conversation-box {
       display: inline-block;
       width: 220px;
       border-left: 1px solid #ddd;
+      vertical-align: top;
       vime {
         .header {
           height: 15px;
@@ -30,7 +34,8 @@
               content: "×";
           }
         }
-        .message {
+        .body {
+          margin: 4px;
         }
         .footer {
           height: 25px;

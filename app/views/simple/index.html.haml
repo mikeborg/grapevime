@@ -1,8 +1,9 @@
 #simple-index
   %div{'ng-controller' => "SearchCtrl"}
-    %form{'name' => 'subimty'}
-      %input{'name' => 'input', 'ng-model' => "query"}
-      %input{'type' => 'submit', 'ng-click' => 'search()'}
+    #search
+      %form{'name' => 'subimty'}
+        %input{'name' => 'input', 'ng-model' => "query"}
+        %input{'type' => 'submit', 'ng-click' => 'search()'}
     #conversations-container
       .conversation-box{'ng-repeat' => 'primaryComment in conversations.slice(0,5)'}
         %vime{'comment' => 'primaryComment', 'index' => '$index', 'conversations' => 'conversations'}
