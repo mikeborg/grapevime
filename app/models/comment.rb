@@ -137,7 +137,7 @@ class Comment < ActiveRecord::Base
     
     hashtags = self.message.scan(/#\S+/)
     hashtags.each do |tag|
-      hashtag = Hashtag.find_or_initialize_by_tag(tag[1..-1])
+      hashtag = Hashtag.find_or_initialize_by(tag: tag[1..-1])
       self.hashtags << hashtag
     end
   end

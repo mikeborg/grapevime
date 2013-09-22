@@ -1,12 +1,18 @@
 Grapevime::Application.routes.draw do
 
-  resources :simple
   resources :search do
     collection do
       get 'test'
     end
   end
-  resources :comments
+  
+  resources :comments do 
+    member do
+      put 'like'
+      put 'close'
+      put 'report'
+    end
+  end
   
   scope :api do 
     get "/search(.:format)" => "search#index"

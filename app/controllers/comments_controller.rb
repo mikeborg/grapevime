@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report]
+  protect_from_forgery except: [:like, :close, :report]
   
   # GET /comments
   # GET /comments.json
@@ -89,6 +90,45 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to comments_url }
         format.json { head :no_content }
+      end
+    end
+    
+    # PATCH/PUT /comments/1/like
+    # PATCH/PUT /comments/1/like.json
+    def like
+      likes = @comment.likes.nil? ? 1 : @comment.likes + 1 
+      respond_to do |format|
+        if @comment.update_attributes(:likes => likes)
+          format.json { head :no_content }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+    
+    # PATCH/PUT /comments/1/close
+    # PATCH/PUT /comments/1/close.json
+    def close
+      closes = @comment.closes.nil? ? 1 : @comment.closes + 1 
+      respond_to do |format|
+        if @comment.update_attributes(:closes => closes)
+          format.json { head :no_content }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+    
+    # PATCH/PUT /comments/1/report
+    # PATCH/PUT /comments/1/report.json
+    def report
+      reports = @comment.reports.nil? ? 1 : @comment.reports + 1 
+      respond_to do |format|
+        if @comment.update_attributes(:reports => reports)
+          format.json { head :no_content }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
       end
     end
   

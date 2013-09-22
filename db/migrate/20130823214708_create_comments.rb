@@ -7,6 +7,7 @@ class CreateComments < ActiveRecord::Migration
       t.string :message
       t.string :source_data
       t.string :sm_type
+      t.integer :gv_likes
       
       t.timestamps
     end
