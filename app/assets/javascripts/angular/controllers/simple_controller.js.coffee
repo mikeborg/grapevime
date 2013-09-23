@@ -1,4 +1,13 @@
-App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->  
+App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comment) ->  
+  
+  $scope.addComment = (parentComment) ->
+      $scope.newComment.comment_id = parentComment.id
+      comment = Comment.save($scope.newComment)
+      console.log(comment)
+      if parentComment.comments == undefined # for comment with no comments
+        parentComment.comments = []
+      parentComment.comments.push(comment)
+      $scope.newComment = {}
   
   $scope.menuSlide = (comment) ->
     if comment.slideSelect == "menu"
@@ -7,7 +16,6 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
       comment.slideVisible = true
       comment.slideSelect = "menu"
     
-  
   $scope.showMenuSlide = (comment) ->
     comment.slideSelect == "menu"
     
@@ -17,7 +25,6 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
     else
       comment.slideVisible = true
       comment.slideSelect = "reply"
-
   
   $scope.showReplySlide = (comment) ->
     comment.slideSelect == "reply"
@@ -25,7 +32,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
   $scope.close = (comment, parentComment, primaryIndex) ->
     $http({
       method : 'PUT'
-      url : '/comments/' + comment.id + '/close.json'
+      url : '/api/comments/' + comment.id + '/close.json'
       data: {
         user_id : $scope.$root.currentUser.id
       }
@@ -40,7 +47,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
   $scope.like = (comment) ->
     $http({
       method : 'PUT'
-      url : '/comments/' + comment.id + '/like.json'
+      url : '/api/comments/' + comment.id + '/like.json'
       data: {
         user_id : $scope.$root.currentUser.id
       }
@@ -51,7 +58,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
   $scope.report = (comment) ->
     $http({
       method : 'PUT'
-      url : '/comments/' + comment.id + '/report.json'
+      url : '/api/comments/' + comment.id + '/report.json'
     }).success((response) ->
       console.log("reported")
     )

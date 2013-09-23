@@ -12,8 +12,17 @@ App.directive "vime", ($compile) ->
               "<img src='/assets/reply-icon.png' class='reply' ng-click='replySlide(comment)'>" +
               "<img src='/assets/menu-icon.png' class='menu' ng-click='menuSlide(comment)'></div>" +
             "<div class='slide' ng-show='comment.slideVisible'>" +
-              "<div ng-show='showMenuSlide(comment)'>Menu!</div>" +
-              "<div ng-show='showReplySlide(comment)'>Comment!</div></div>" +
+              "<div ng-show='showMenuSlide(comment)'>" +
+                "A menu will be placed here." +
+              "</div>" +
+              "<div ng-show='showReplySlide(comment)'>" +
+                "<form ng-submit='addComment(comment)'>" +
+                  "<textarea rows='6' cols='28' ng-model='newComment.message'></textarea>" +
+                  "<input type='hidden' ng-model='newComment.comment_id'>" +
+                  "<input style='margin-left:160px;' type='submit' value='Submit'>" +
+                "</form>" +
+              "</div>" +
+            "</div>" +
             "<vime ng-repeat=\"child in comment.comments.slice(0,1)\"' comment=\"child\"></vime>"
   compile: (tElement, tAttr) ->
     contents = tElement.contents().remove()
