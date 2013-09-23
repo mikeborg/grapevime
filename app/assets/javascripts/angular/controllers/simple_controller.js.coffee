@@ -1,4 +1,26 @@
-App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
+App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->  
+  
+  $scope.menuSlide = (comment) ->
+    if comment.slideSelect == "menu"
+      comment.slideVisible = not comment.slideVisible
+    else
+      comment.slideVisible = true
+      comment.slideSelect = "menu"
+    
+  
+  $scope.showMenuSlide = (comment) ->
+    comment.slideSelect == "menu"
+    
+  $scope.replySlide = (comment) ->
+    if comment.slideSelect == "reply"
+      comment.slideVisible = not comment.slideVisible
+    else
+      comment.slideVisible = true
+      comment.slideSelect = "reply"
+
+  
+  $scope.showReplySlide = (comment) ->
+    comment.slideSelect == "reply"
   
   $scope.close = (comment, parentComment, primaryIndex) ->
     $http({

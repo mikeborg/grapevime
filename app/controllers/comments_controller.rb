@@ -109,7 +109,7 @@ class CommentsController < ApplicationController
     # PATCH/PUT /comments/1/close
     # PATCH/PUT /comments/1/close.json
     def close
-      @comment.closes << current_user 
+      @comment.close(current_user)
       respond_to do |format|
         if @comment.save!
           format.json { head :no_content }

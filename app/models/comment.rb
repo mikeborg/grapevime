@@ -27,6 +27,14 @@ class Comment < ActiveRecord::Base
     end
   end
   
+  def close(user)
+    unless CommentsClose.exists?({:comment_id => self.id, :user_id => user.id})
+      self.comments_closes.new(:comment_id => self.id, :user_id => user.id)
+    else
+      puts "This user has already closed this comment."
+    end
+  end
+  
   def self.search_comments(query)
     hashtags = Hashtag.search_tags(query) #search for hashtags similar to :query
     comment_results = []
