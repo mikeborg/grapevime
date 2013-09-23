@@ -3,16 +3,29 @@ class Comment < ActiveRecord::Base
   has_many :comments
   has_many :attags_comments
   has_many :hashtags_comments
-  has_many :attags, -> { distinct }, through: :attags_comments
-  has_many :hashtags, -> { distinct }, through: :hashtags_comments
+  has_many :comments_likes
+  has_many :comments_closes
+  has_many :attags, through: :attags_comments
+  has_many :hashtags, through: :hashtags_comments
+  has_many :likes, through: :comments_likes, source: :user
+  has_many :closes, through: :comments_closes, source: :user
   
-  before_save :parse_and_associate_tags
+  before_save :parse_for_and_associate_tags
   
   include PgSearch
   pg_search_scope :search, against: [:message],
     using: {tsearch: {dictionary: "english"}},
     #associated_against: {attags: [:tag], hashtags: [:tag]},
     ignoring: :accents
+  
+  
+  def like(user)
+    unless CommentsLike.exists?({:comment_id => self.id, :user_id => user.id})
+      self.comments_likes.new(:comment_id => self.id, :user_id => user.id)
+    else
+      puts "This user has already liked this comment."
+    end
+  end
   
   def self.search_comments(query)
     hashtags = Hashtag.search_tags(query) #search for hashtags similar to :query
@@ -56,18 +69,30 @@ class Comment < ActiveRecord::Base
   end
   
   # !!! eventually parse message for tags client-side !!!
-  def parse_and_associate_tags
-    attags = self.message.scan(/@\S+/)
-    attags.each do |tag|
-      #check for existing association
-      attag = Attag.find_or_initialize_by_tag(tag[1..-1])
-      self.attags << attag
-    end
+  def parse_for_and_associate_tags
+    # scanned_attags = self.message.scan(/@\S+/)
+    #     scanned_attags.each do |tag|
+    #       #check for existing association
+    #       attag = Attag.find_or_initialize_by_tag(tag[1..-1])
+    #       begin
+    #         self.attags << attag
+    #       rescue ActiveRecord::RecordInvalid => e
+    #         # do nothing
+    #         #next if(e.message =~ /unique.*constraint.*INDEX_NAME_GOES_HERE/)
+    #         #raise
+    #       end
+    #     end
     
-    hashtags = self.message.scan(/#\S+/)
-    hashtags.each do |tag|
-      hashtag = Hashtag.find_or_initialize_by(tag: tag[1..-1])
-      self.hashtags << hashtag
+    scanned_hashtags = self.message.scan(/#\S+/).uniq
+    scanned_hashtags.each do |tag|
+      hashtag = Hashtag.find_or_initialize_by(tag: tag[1..-1]) #remove leading "#"
+      if hashtag.new_record?
+        self.hashtags.new(tag: tag[1..-1])
+      else
+        unless HashtagsComment.exists?(hashtag_id: hashtag.id, comment_id: self.id)
+          self.hashtags_comments.new(hashtag_id: hashtag.id)
+        end
+      end
     end
   end
   

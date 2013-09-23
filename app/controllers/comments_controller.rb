@@ -96,9 +96,9 @@ class CommentsController < ApplicationController
     # PATCH/PUT /comments/1/like
     # PATCH/PUT /comments/1/like.json
     def like
-      likes = @comment.likes.nil? ? 1 : @comment.likes + 1 
+      @comment.like(current_user)
       respond_to do |format|
-        if @comment.update_attributes(:likes => likes)
+        if @comment.save!
           format.json { head :no_content }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -109,9 +109,9 @@ class CommentsController < ApplicationController
     # PATCH/PUT /comments/1/close
     # PATCH/PUT /comments/1/close.json
     def close
-      closes = @comment.closes.nil? ? 1 : @comment.closes + 1 
+      @comment.closes << current_user 
       respond_to do |format|
-        if @comment.update_attributes(:closes => closes)
+        if @comment.save!
           format.json { head :no_content }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }

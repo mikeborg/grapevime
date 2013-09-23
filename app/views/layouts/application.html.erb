@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Grapevime">
+<html ng-app="Grapevime" ng-init="currentUser=<%= current_user.to_json %>" >
 <head>
   <title>Grapevime</title>
   <%= stylesheet_link_tag "application", media: "all" %>

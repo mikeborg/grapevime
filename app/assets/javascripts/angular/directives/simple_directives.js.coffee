@@ -5,7 +5,7 @@ App.directive "vime", ($compile) ->
     comment: "="
     index: "="
     conversations: "="
-  template: "<div class='header'><a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a></div>" +
+  template: "<div class='header'>{{indexN}}<a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a></div>" +
             "<div class='body'>{{ comment.message }}</div>" +
             "<div class='footer'>" +
               "<img src='/assets/like-icon.png' class='like' ng-click='like(comment)' />" +

@@ -6,5 +6,6 @@ class CreateHashtagsComments < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index(:hashtags_comments, [:comment_id, :hashtag_id], :unique => true)
   end
 end

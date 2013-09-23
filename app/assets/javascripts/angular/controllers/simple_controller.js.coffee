@@ -4,6 +4,9 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
     $http({
       method : 'PUT'
       url : '/comments/' + comment.id + '/close.json'
+      data: {
+        user_id : $scope.$root.currentUser.id
+      }
     }).success((response) ->
       console.log("closed")
       if comment.comment_id == null
@@ -16,6 +19,9 @@ App.controller 'SimpleCtrl', ['$scope', '$http', ($scope, $http) ->
     $http({
       method : 'PUT'
       url : '/comments/' + comment.id + '/like.json'
+      data: {
+        user_id : $scope.$root.currentUser.id
+      }
     }).success((response) ->
       console.log("liked")
     )

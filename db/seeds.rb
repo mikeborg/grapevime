@@ -7,34 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'faker'
 
-hashtags = ['#NBAFinals', '#BostonBombing', "#TheBachelor"]
+hashtags = ['#NBAFinals', '#BostonBombing', '#TheBachelor']
 sm_array = ['grapevime', 'twitter', 'facebook']
 
-primary_comments = Comment.create([
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
-  #{message: "This is a primary comment.", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
+User.create
+
+primary_comments = Comment.create!([
   {message: "This is a primary comment. #{Faker::Lorem.paragraph(rand(1..6))} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   {message: "This is a primary comment. #{Faker::Lorem.paragraph(rand(1..6))} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
   {message: "This is a primary comment. #{Faker::Lorem.paragraph(rand(1..6))} #{hashtags.sample}", sm_type: sm_array.sample, popularity: Random.rand(9999999)},
