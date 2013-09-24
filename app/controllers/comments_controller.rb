@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark]
-  protect_from_forgery except: [:like, :close, :report]
-  
+  protect_from_forgery except: [:like, :close, :report, :create]
+
   # GET /comments
   # GET /comments.json
   def index
@@ -92,7 +92,7 @@ class CommentsController < ApplicationController
         format.json { head :no_content }
       end
     end
-    
+
     # PATCH/PUT /comments/1/like.json
     def like
       @comment.like(current_user)
@@ -104,7 +104,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/bookmark.json
     def bookmark
       @comment.bookmark(current_user)
@@ -116,7 +116,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/close.json
     def close
       @comment.close(current_user)
@@ -128,7 +128,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/report.json
     def report
        @comment.report(current_user)
@@ -140,7 +140,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-  
+
   private
     def set_comment
       @comment = Comment.find(params[:id])
