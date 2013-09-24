@@ -6,7 +6,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
       console.log(comment)
       if parentComment.comments == undefined # for comment with no comments
         parentComment.comments = []
-      parentComment.comments.push(comment)
+      parentComment.comments.unshift(comment)
       $scope.newComment = {}
   
   $scope.menuSlide = (comment) ->
