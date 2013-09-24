@@ -12,10 +12,13 @@
     margin-bottom: 5px;
   }
   #conversations-container {
+    .conversation-box:last-child {
+      border: none;
+    }
     .conversation-box {
       display: inline-block;
       width: 220px;
-      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
       vertical-align: top;
       vime {
         .header {
