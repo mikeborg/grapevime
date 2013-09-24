@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130825192610) do
+ActiveRecord::Schema.define(version: 20130924030832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,15 +30,57 @@ ActiveRecord::Schema.define(version: 20130825192610) do
     t.datetime "updated_at"
   end
 
+  add_index "attags_comments", ["comment_id", "attag_id"], name: "index_attags_comments_on_comment_id_and_attag_id", unique: true, using: :btree
+
   create_table "comments", force: true do |t|
     t.integer  "comment_id"
     t.integer  "popularity"
-    t.string   "message"
+    t.text     "message"
     t.string   "source_data"
     t.string   "sm_type"
+    t.integer  "closes"
+    t.integer  "likes"
+    t.integer  "reports"
+    t.integer  "views"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments_bookmarks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments_bookmarks", ["comment_id", "user_id"], name: "index_comments_bookmarks_on_comment_id_and_user_id", unique: true, using: :btree
+
+  create_table "comments_closes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments_closes", ["comment_id", "user_id"], name: "index_comments_closes_on_comment_id_and_user_id", unique: true, using: :btree
+
+  create_table "comments_likes", force: true do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments_likes", ["comment_id", "user_id"], name: "index_comments_likes_on_comment_id_and_user_id", unique: true, using: :btree
+
+  create_table "comments_reports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments_reports", ["comment_id", "user_id"], name: "index_comments_reports_on_comment_id_and_user_id", unique: true, using: :btree
 
   create_table "hashtags", force: true do |t|
     t.string   "tag"
@@ -49,6 +91,13 @@ ActiveRecord::Schema.define(version: 20130825192610) do
   create_table "hashtags_comments", force: true do |t|
     t.integer  "hashtag_id"
     t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "hashtags_comments", ["comment_id", "hashtag_id"], name: "index_hashtags_comments_on_comment_id_and_hashtag_id", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

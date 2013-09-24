@@ -6,5 +6,6 @@ class CreateAttagsComments < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index(:attags_comments, [:comment_id, :attag_id], :unique => true)
   end
 end
