@@ -6,7 +6,7 @@ App.directive "vime", ($compile) ->
     index: "="
     conversations: "="
   template: "<div class='header'>" +
-              "<img src='/assets/bookmark-icon.png' class='bookmark' ng-click='bookmark(comment)'>" +
+              "<a><img src='/assets/bookmark-icon.png' class='bookmark' ng-click='bookmark(comment)'></a>" +
               "<a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a>" +
             "</div>" +
             "<div class='body'>{{ comment.message }}</div>" +
@@ -16,10 +16,13 @@ App.directive "vime", ($compile) ->
               "<img src='/assets/menu-icon.png' class='menu' ng-click='menuSlide(comment)'>" +
             "</div>" +
             "<div class='slide' ng-show='comment.slideVisible'>" +
-              "<div ng-show='showMenuSlide(comment)'>" +
-                "A menu will be placed here." +
+              "<div class='menu-slide' ng-show='showMenuSlide(comment)'>" +
+                "<ul>" +
+                  "<li><a ng-click='report(comment)'>Report as Abuse/Spam</a></li>" +
+                  "<li><a>Comment Info</a></li>" +
+                "</ul>" +
               "</div>" +
-              "<div ng-show='showReplySlide(comment)'>" +
+              "<div class='reply-slide' ng-show='showReplySlide(comment)'>" +
                 "<form ng-submit='addComment(comment)'>" +
                   "<textarea rows='6' cols='28' ng-model='newComment.message'></textarea>" +
                   "<input type='hidden' ng-model='newComment.comment_id'>" +

@@ -53,7 +53,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("liked")
+      console.log("bookmarked")
     )
   
   $scope.like = (comment) ->
@@ -71,6 +71,9 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/report.json'
+      data: {
+        user_id : $scope.$root.currentUser.id
+      }
     }).success((response) ->
       console.log("reported")
     )

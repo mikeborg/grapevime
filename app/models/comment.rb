@@ -6,11 +6,13 @@ class Comment < ActiveRecord::Base
   has_many :comments_likes
   has_many :comments_closes
   has_many :comments_bookmarks
+  has_many :comments_reports
   has_many :attags, through: :attags_comments
   has_many :hashtags, through: :hashtags_comments
   has_many :likes, through: :comments_likes, source: :user
   has_many :closes, through: :comments_closes, source: :user
   has_many :bookmarks, through: :comments_bookmarks, source: :user
+  has_many :reports, through: :comments_reports, source: :user
   
   before_save :parse_for_and_associate_tags
   
@@ -20,6 +22,16 @@ class Comment < ActiveRecord::Base
     #associated_against: {attags: [:tag], hashtags: [:tag]},
     ignoring: :accents
   
+  def report(user)
+    unless CommentsReport.exists?({:comment_id => self.id, :user_id => user.id})
+      self.comments_reports.new(:comment_id => self.id, :user_id => user.id)
+    else
+      puts "This user has already reported this comment."
+    end
+  end
+  
+  def unlike(user)
+  end
   
   def like(user)
     unless CommentsLike.exists?({:comment_id => self.id, :user_id => user.id})

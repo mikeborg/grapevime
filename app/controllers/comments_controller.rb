@@ -131,9 +131,9 @@ class CommentsController < ApplicationController
     
     # PATCH/PUT /comments/1/report.json
     def report
-      reports = @comment.reports.nil? ? 1 : @comment.reports + 1 
+       @comment.report(current_user)
       respond_to do |format|
-        if @comment.update_attributes(:reports => reports)
+        if @comment.save!
           format.json { head :no_content }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }

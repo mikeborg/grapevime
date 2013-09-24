@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #simple-index {
+  a {
+    cursor: pointer;
+  }
+  img {
+    cursor: pointer;
+  }
   #search {
     margin-bottom: 5px;
   }
@@ -64,6 +70,38 @@
           }
         }
         .slide {
+          .menu-slide {
+            ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+//              border-top: 1px solid #ccc;
+              li {
+                font: 200 15px/1.5 Helvetica, Verdana, sans-serif;
+//                border-bottom: 1px solid #ccc;
+              }
+              li:last-child {
+                border: none;
+              }
+              li a {
+                text-decoration: none;
+                color: #000;
+                display: block;
+                width: 200px;
+                text-align: center;
+
+                -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+                -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+                -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+                -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+                transition: font-size 0.3s ease, background-color 0.3s ease;
+              }
+              li a:hover {
+                font-size: 18px;
+                background: #f6f6f6;
+              }
+            }
+          }
           textarea {
             max-width: 210px;
           }
