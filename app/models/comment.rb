@@ -5,10 +5,12 @@ class Comment < ActiveRecord::Base
   has_many :hashtags_comments
   has_many :comments_likes
   has_many :comments_closes
+  has_many :comments_bookmarks
   has_many :attags, through: :attags_comments
   has_many :hashtags, through: :hashtags_comments
   has_many :likes, through: :comments_likes, source: :user
   has_many :closes, through: :comments_closes, source: :user
+  has_many :bookmarks, through: :comments_bookmarks, source: :user
   
   before_save :parse_for_and_associate_tags
   
@@ -27,12 +29,29 @@ class Comment < ActiveRecord::Base
     end
   end
   
+  def unlike(user)
+  end
+  
+  def bookmark(user)
+    unless CommentsBookmark.exists?({:comment_id => self.id, :user_id => user.id})
+      self.comments_bookmarks.new(:comment_id => self.id, :user_id => user.id)
+    else
+      puts "This user has already bookmarked this comment."
+    end
+  end
+  
+  def unbookmark(user)
+  end
+  
   def close(user)
     unless CommentsClose.exists?({:comment_id => self.id, :user_id => user.id})
       self.comments_closes.new(:comment_id => self.id, :user_id => user.id)
     else
       puts "This user has already closed this comment."
     end
+  end
+  
+  def unclose(user)
   end
   
   def self.search_comments(query)

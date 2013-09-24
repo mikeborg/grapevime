@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark]
   protect_from_forgery except: [:like, :close, :report]
   
   # GET /comments
@@ -93,7 +93,6 @@ class CommentsController < ApplicationController
       end
     end
     
-    # PATCH/PUT /comments/1/like
     # PATCH/PUT /comments/1/like.json
     def like
       @comment.like(current_user)
@@ -106,7 +105,18 @@ class CommentsController < ApplicationController
       end
     end
     
-    # PATCH/PUT /comments/1/close
+    # PATCH/PUT /comments/1/bookmark.json
+    def bookmark
+      @comment.bookmark(current_user)
+      respond_to do |format|
+        if @comment.save!
+          format.json { head :no_content }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+    
     # PATCH/PUT /comments/1/close.json
     def close
       @comment.close(current_user)
@@ -119,7 +129,6 @@ class CommentsController < ApplicationController
       end
     end
     
-    # PATCH/PUT /comments/1/report
     # PATCH/PUT /comments/1/report.json
     def report
       reports = @comment.reports.nil? ? 1 : @comment.reports + 1 

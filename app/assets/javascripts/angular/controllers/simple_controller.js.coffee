@@ -8,6 +8,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         parentComment.comments = []
       parentComment.comments.unshift(comment)
       $scope.newComment = {}
+      parentComment.slideVisible = false
   
   $scope.menuSlide = (comment) ->
     if comment.slideSelect == "menu"
@@ -44,6 +45,17 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         parentComment.comments.shift()
     )
     
+  $scope.bookmark = (comment) ->
+    $http({
+      method : 'PUT'
+      url : '/api/comments/' + comment.id + '/bookmark.json'
+      data: {
+        user_id : $scope.$root.currentUser.id
+      }
+    }).success((response) ->
+      console.log("liked")
+    )
+  
   $scope.like = (comment) ->
     $http({
       method : 'PUT'

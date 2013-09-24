@@ -5,12 +5,16 @@ App.directive "vime", ($compile) ->
     comment: "="
     index: "="
     conversations: "="
-  template: "<div class='header'><a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a></div>" +
+  template: "<div class='header'>" +
+              "<img src='/assets/bookmark-icon.png' class='bookmark' ng-click='bookmark(comment)'>" +
+              "<a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a>" +
+            "</div>" +
             "<div class='body'>{{ comment.message }}</div>" +
             "<div class='footer'>" +
               "<img src='/assets/like-icon.png' class='like' ng-click='like(comment)' />" +
               "<img src='/assets/reply-icon.png' class='reply' ng-click='replySlide(comment)'>" +
-              "<img src='/assets/menu-icon.png' class='menu' ng-click='menuSlide(comment)'></div>" +
+              "<img src='/assets/menu-icon.png' class='menu' ng-click='menuSlide(comment)'>" +
+            "</div>" +
             "<div class='slide' ng-show='comment.slideVisible'>" +
               "<div ng-show='showMenuSlide(comment)'>" +
                 "A menu will be placed here." +

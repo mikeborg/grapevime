@@ -13,8 +13,14 @@
       vertical-align: top;
       vime {
         .header {
-          height: 15px;
+          height: 21px;
           background-color: green;
+          .bookmark {
+            width: 20px;
+            height: 20px;
+            border: 0px;
+            margin: 0px 10px 0px 10px;
+          }
           a.boxclose{
             display: inline-block;
             float:right;
