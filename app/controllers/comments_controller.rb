@@ -6,13 +6,13 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments = Comment.all
-  
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comments }
     end
   end
-  
+
   # GET /comments/1
   # GET /comments/1.json
   def show
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
       format.json { render json: @comment }
     end
   end
-    
+
   # GET /comments/new
   # GET /comments/new.json
   def new
@@ -31,12 +31,12 @@ class CommentsController < ApplicationController
       format.json { render json: @comment }
     end
   end
-  
+
   # POST /comments
   # POST /comment.json
   def create
     @comment = Comment.new(comment_params)
-    
+
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
@@ -47,7 +47,7 @@ class CommentsController < ApplicationController
       end
     end
   end
-  
+
   # GET /comments/1/edit
     def edit
     end
@@ -92,7 +92,7 @@ class CommentsController < ApplicationController
         format.json { head :no_content }
       end
     end
-    
+
     # PATCH/PUT /comments/1/like.json
     def like
       @comment.like(current_user)
@@ -104,7 +104,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/bookmark.json
     def bookmark
       @comment.bookmark(current_user)
@@ -116,7 +116,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/close.json
     def close
       @comment.close(current_user)
@@ -128,7 +128,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     # PATCH/PUT /comments/1/report.json
     def report
        @comment.report(current_user)
@@ -140,6 +140,7 @@ class CommentsController < ApplicationController
         end
       end
     end
+<<<<<<< HEAD
     
     def comments
       @comments = @comment.comments.limit(2)
@@ -152,11 +153,14 @@ class CommentsController < ApplicationController
       end
     end
   
+=======
+
+>>>>>>> 47dc2c9cb0e318de999f5ca0ccb9ced6952056be
   private
     def set_comment
       @comment = Comment.find(params[:id])
     end
-    
+
     def comment_params
       params.require(:comment).permit(:message, :comment_id, :sm_type)
     end
