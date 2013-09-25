@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark, :comments]
-  protect_from_forgery except: [:like, :close, :report]
-  
+  protect_from_forgery except: [:like, :close, :report, :create]
+
   # GET /comments
   # GET /comments.json
   def index
@@ -140,7 +140,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-    
+
     def comments
       @comments = @comment.comments.limit(2)
       respond_to do |format|
@@ -151,7 +151,7 @@ class CommentsController < ApplicationController
         end
       end
     end
-  
+
   private
     def set_comment
       @comment = Comment.find(params[:id])
