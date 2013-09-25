@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark, :comments]
   protect_from_forgery except: [:like, :close, :report]
   
   # GET /comments
@@ -135,6 +135,17 @@ class CommentsController < ApplicationController
       respond_to do |format|
         if @comment.save!
           format.json { head :no_content }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+    
+    def comments
+      @comments = @comment.comments.limit(2)
+      respond_to do |format|
+        if @comment.save!
+          format.json { render json: @comments }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }
         end

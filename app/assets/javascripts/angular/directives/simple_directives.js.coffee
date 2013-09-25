@@ -4,12 +4,12 @@ App.directive "vime", ($compile) ->
   scope:
     comment: "="
     index: "="
-    conversations: "="
   template: "<div class='header'>" +
               "<a><img src='/assets/bookmark-icon.png' class='bookmark' ng-click='bookmark(comment)'></a>" +
               "<a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a>" +
             "</div>" +
-            "<div class='body'>{{ comment.message }}</div>" +
+            "<div class='body'>{{ comment.message }}" +
+            "</div>" +
             "<div class='footer'>" +
               "<img src='/assets/like-icon.png' class='like' ng-click='like(comment)' />" +
               "<img src='/assets/reply-icon.png' class='reply' ng-click='replySlide(comment)'>" +
@@ -20,6 +20,7 @@ App.directive "vime", ($compile) ->
                 "<ul>" +
                   "<li><a ng-click='report(comment)'>Report as Abuse/Spam</a></li>" +
                   "<li><a>Comment Info</a></li>" +
+                  "<li><a ng-show='lastChild(comment)' ng-click='loadComments(comment)'>More</a></li> " +
                 "</ul>" +
               "</div>" +
               "<div class='reply-slide' ng-show='showReplySlide(comment)'>" +

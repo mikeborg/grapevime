@@ -1,5 +1,22 @@
 App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comment) ->  
   
+  $scope.loadComments = (comment) ->
+    $http({
+      method : 'GET'
+      url : '/api/comments/' + comment.id + '/comments.json'
+    }).success((response) ->
+      console.log("Retrieved comments.")
+      if response[0] != undefined
+        comment.comments = []
+        comment.comments.push(response[0])
+    )
+  
+  $scope.lastChild = (comment) ->
+    if comment.comments == undefined or comment.comments.length == 0
+      true
+    else
+      false
+  
   $scope.addComment = (parentComment) ->
       $scope.newComment.comment_id = parentComment.id
       comment = Comment.save($scope.newComment)
@@ -53,7 +70,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("bookmarked")
+      console.log("Comment bookmarked.")
     )
   
   $scope.like = (comment) ->
@@ -64,7 +81,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("liked")
+      console.log("Comment liked.")
     )
     
   $scope.report = (comment) ->
@@ -75,6 +92,6 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("reported")
+      console.log("Comment reported.")
     )
 ]

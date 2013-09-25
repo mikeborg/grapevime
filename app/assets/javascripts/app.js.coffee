@@ -1,1 +1,1 @@
-window.App = angular.module('Grapevime', ['ngResource', 'infinite-scroll'])
+window.App = angular.module('Grapevime', ['ngResource'])

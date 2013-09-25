@@ -6,4 +6,4 @@
         %input{'type' => 'submit', 'ng-click' => 'search()', 'value' => "Search"}
     #conversations-container
       .conversation-box{'ng-repeat' => 'primaryComment in conversations.slice(0,5)'}
-        %vime{'comment' => 'primaryComment', 'index' => '$index', 'conversations' => 'conversations'}
+        %vime{'comment' => 'primaryComment', 'index' => '$index'}
