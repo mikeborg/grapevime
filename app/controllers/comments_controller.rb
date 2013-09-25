@@ -140,7 +140,6 @@ class CommentsController < ApplicationController
         end
       end
     end
-<<<<<<< HEAD
     
     def comments
       @comments = @comment.comments.limit(2)
@@ -153,9 +152,6 @@ class CommentsController < ApplicationController
       end
     end
   
-=======
-
->>>>>>> 47dc2c9cb0e318de999f5ca0ccb9ced6952056be
   private
     def set_comment
       @comment = Comment.find(params[:id])
