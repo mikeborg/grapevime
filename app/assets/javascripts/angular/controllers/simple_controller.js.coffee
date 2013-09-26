@@ -55,22 +55,24 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("closed")
-      if comment.comment_id == null
-        $scope.conversations.splice(primaryIndex,1)
+      console.log("closed.. fix .$parent.$parent thing.")
+      if comment.comment_id == null # if primary comment
+        $scope.$parent.$parent.conversations.splice(primaryIndex,1) #fix this .$parent.$parent thing.
+        $scope.$parent.$parent.conversations.push(response)
       else
         parentComment.comments.shift()
+        parentComment.comments.push(response)
     )
     
-  $scope.bookmark = (comment) ->
+  $scope.vime = (comment) ->
     $http({
       method : 'PUT'
-      url : '/api/comments/' + comment.id + '/bookmark.json'
+      url : '/api/comments/' + comment.id + '/vime.json'
       data: {
         user_id : $scope.$root.currentUser.id
       }
     }).success((response) ->
-      console.log("Comment bookmarked.")
+      console.log("Comment vimed.")
     )
   
   $scope.like = (comment) ->

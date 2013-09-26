@@ -62,7 +62,7 @@ class SearchController < ApplicationController
   def index
     hashtags = Hashtag.search_tags(params[:q])
     respond_to do |format|
-      format.json { render json: Comment.joins(:hashtags).where(comment_id: nil, hashtags: {id: hashtags.first}).to_json(:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
+      format.json { render json: Comment.joins(:hashtags).where(comment_id: nil, hashtags: { id: hashtags.first } ).to_json } #:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
     end
   end
   

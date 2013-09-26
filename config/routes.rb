@@ -21,7 +21,7 @@ Grapevime::Application.routes.draw do
         put 'like'
         put 'close'
         put 'report'
-        put 'bookmark'
+        put 'vime'
         get 'comments'
       end
     end

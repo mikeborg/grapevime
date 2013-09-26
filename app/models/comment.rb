@@ -5,22 +5,32 @@ class Comment < ActiveRecord::Base
   has_many :hashtags_comments
   has_many :comments_likes
   has_many :comments_closes
-  has_many :comments_bookmarks
+  has_many :comments_vimes
   has_many :comments_reports
   has_many :attags, through: :attags_comments
   has_many :hashtags, through: :hashtags_comments
   has_many :likes, through: :comments_likes, source: :user
   has_many :closes, through: :comments_closes, source: :user
-  has_many :bookmarks, through: :comments_bookmarks, source: :user
+  has_many :vimes, through: :comments_vimes, source: :user
   has_many :reports, through: :comments_reports, source: :user
   
-  before_save :parse_for_and_associate_tags
+  before_save :parse_for_and_associate_tags #expensive method.. consider calling only when self.message is modified.
+  before_save :update_popularity
   
   include PgSearch
   pg_search_scope :search, against: [:message],
     using: {tsearch: {dictionary: "english"}},
     #associated_against: {attags: [:tag], hashtags: [:tag]},
     ignoring: :accents
+  
+  def update_popularity
+    like_pop = self.likes.count * 10;
+    close_pop = self.closes.count * -2; #negative emphasis = worse than being ignored.
+    report_pop = self.reports.count * -100;
+    reply_pop = self.comments.count * 30;
+    vime_pop = self.vimes.count * 100;
+    self.popularity = like_pop + close_pop + report_pop + reply_pop + vime_pop;
+  end
   
   def report(user)
     unless CommentsReport.exists?({:comment_id => self.id, :user_id => user.id})
@@ -44,15 +54,15 @@ class Comment < ActiveRecord::Base
   def unlike(user)
   end
   
-  def bookmark(user)
-    unless CommentsBookmark.exists?({:comment_id => self.id, :user_id => user.id})
-      self.comments_bookmarks.new(:comment_id => self.id, :user_id => user.id)
+  def vime(user)
+    unless CommentsVime.exists?({:comment_id => self.id, :user_id => user.id})
+      self.comments_vimes.new(:comment_id => self.id, :user_id => user.id)
     else
-      puts "This user has already bookmarked this comment."
+      puts "This user has already vimed this comment."
     end
   end
   
-  def unbookmark(user)
+  def unvime(user)
   end
   
   def close(user)

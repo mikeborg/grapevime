@@ -24,7 +24,7 @@
         .header {
           height: 21px;
           background-color: green;
-          .bookmark {
+          .vime {
             width: 20px;
             height: 20px;
             border: 0px;
@@ -109,6 +109,12 @@
             max-width: 210px;
           }
           background-color: #f7f7f7;
+        }
+        .more {
+          height: 18px;
+          background-color: #f7f7f7;
+          text-align: center;
+          cursor: pointer;
         }
       }
     }

@@ -5,7 +5,7 @@ App.directive "vime", ($compile) ->
     comment: "="
     index: "="
   template: "<div class='header'>" +
-              "<a><img src='/assets/bookmark-icon.png' class='bookmark' ng-click='bookmark(comment)'></a>" +
+              "<a><img src='/assets/vime-icon.png' class='vime' ng-click='vime(comment)'></a>" +
               "<a class='boxclose' ng-click=\"close(comment, $parent.comment, index)\"></a>" +
             "</div>" +
             "<div class='body'>{{ comment.message }}" +
@@ -20,7 +20,6 @@ App.directive "vime", ($compile) ->
                 "<ul>" +
                   "<li><a ng-click='report(comment)'>Report as Abuse/Spam</a></li>" +
                   "<li><a>Comment Info</a></li>" +
-                  "<li><a ng-show='lastChild(comment)' ng-click='loadComments(comment)'>More</a></li> " +
                 "</ul>" +
               "</div>" +
               "<div class='reply-slide' ng-show='showReplySlide(comment)'>" +
@@ -31,6 +30,7 @@ App.directive "vime", ($compile) ->
                 "</form>" +
               "</div>" +
             "</div>" +
+            "<div class='more' ng-show='lastChild(comment)' ng-click='loadComments(comment)' ><a>More</a></div>" +
             "<vime ng-repeat=\"child in comment.comments.slice(0,1)\"' comment=\"child\"></vime>"
   compile: (tElement, tAttr) ->
     contents = tElement.contents().remove()

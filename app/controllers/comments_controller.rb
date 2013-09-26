@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark, :comments]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :vime, :comments]
   protect_from_forgery except: [:like, :close, :report]
   
   # GET /comments
@@ -105,9 +105,9 @@ class CommentsController < ApplicationController
       end
     end
 
-    # PATCH/PUT /comments/1/bookmark.json
-    def bookmark
-      @comment.bookmark(current_user)
+    # PATCH/PUT /comments/1/vime.json
+    def vime
+      @comment.vime(current_user)
       respond_to do |format|
         if @comment.save!
           format.json { head :no_content }
@@ -120,9 +120,15 @@ class CommentsController < ApplicationController
     # PATCH/PUT /comments/1/close.json
     def close
       @comment.close(current_user)
+      if @comment.comment_id.nil?
+        @next_comment = Comment.joins(:hashtags).where(comment_id: nil, hashtags: { id: @comment.hashtags.first.id } ).sample
+      else
+        @next_comment = @comment.comment.comments.sample
+      end
       respond_to do |format|
         if @comment.save!
-          format.json { head :no_content }
+          puts "NEXT COMMENT: " + @next_comment.inspect
+          format.json { render json: @next_comment }
         else
           format.json { render json: @comment.errors, status: :unprocessable_entity }
         end

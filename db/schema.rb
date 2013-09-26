@@ -46,15 +46,6 @@ ActiveRecord::Schema.define(version: 20130924030832) do
     t.datetime "updated_at"
   end
 
-  create_table "comments_bookmarks", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comments_bookmarks", ["comment_id", "user_id"], name: "index_comments_bookmarks_on_comment_id_and_user_id", unique: true, using: :btree
-
   create_table "comments_closes", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
@@ -81,6 +72,15 @@ ActiveRecord::Schema.define(version: 20130924030832) do
   end
 
   add_index "comments_reports", ["comment_id", "user_id"], name: "index_comments_reports_on_comment_id_and_user_id", unique: true, using: :btree
+
+  create_table "comments_vimes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments_vimes", ["comment_id", "user_id"], name: "index_comments_vimes_on_comment_id_and_user_id", unique: true, using: :btree
 
   create_table "hashtags", force: true do |t|
     t.string   "tag"
