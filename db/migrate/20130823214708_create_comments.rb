@@ -11,6 +11,9 @@ class CreateComments < ActiveRecord::Migration
       t.integer :likes
       t.integer :reports
       t.integer :views
+      t.belongs_to :user #or grapevime_id?
+      t.integer :facebook_id
+      t.integer :twitter_id
       
       t.timestamps
     end

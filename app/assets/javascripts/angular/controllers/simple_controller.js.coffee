@@ -1,5 +1,10 @@
 App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comment) ->  
   
+  
+  $scope.liked = (comment) ->
+    # $scope.$root.currentUser.id
+    false
+    
   $scope.loadComments = (comment) ->
     $http({
       method : 'GET'

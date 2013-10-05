@@ -59,18 +59,21 @@
             width: 20px;
             height: 20px;
             border: 0px;
-            margin: 3px 10px 0px 30px;
-          }
-          .menu {
-            height: 40px;
-            width: 40px;
-            margin: -20px 20px -10px 20px;
+            margin: 3px 25px 0px 30px;
           }
           .reply {
-            height: 40px;
-            width: 40px;
-            margin: -20px 11px -10px 29px;
+            height: 20px;
+            width: 20px;
+            border: 0px;
+            margin: 3px 25px 0px 25px;
           }
+          .menu {
+            height: 20px;
+            width: 20px;
+            border: 0px;
+            margin: 3px 30px 0px 25px;
+          }
+          
         }
         .slide {
           .menu-slide {

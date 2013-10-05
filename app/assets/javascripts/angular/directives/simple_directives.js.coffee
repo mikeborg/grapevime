@@ -11,9 +11,9 @@ App.directive "vime", ($compile) ->
             "<div class='body'>{{ comment.message }}" +
             "</div>" +
             "<div class='footer'>" +
-              "<img src='/assets/like-icon.png' class='like' ng-click='like(comment)' />" +
-              "<img src='/assets/reply-icon.png' class='reply' ng-click='replySlide(comment)'>" +
-              "<img src='/assets/menu-icon.png' class='menu' ng-click='menuSlide(comment)'>" +
+              "<img ng-src=\"{{liked(comment) == true && '/assets/thumb-icon-green.png' || '/assets/thumb-icon-gray.png'}}\" class='like' ng-click='like(comment)' />" +
+              "<img ng-src=\"{{(showReplySlide(comment) && comment.slideVisible) && 'assets/reply-icon-green.png' || '/assets/reply-icon-gray.png'}}\" class='reply' ng-click='replySlide(comment)'>" +
+              "<img ng-src=\"{{(showMenuSlide(comment) && comment.slideVisible) && 'assets/menu-icon-green.png' || '/assets/menu-icon-gray.png'}}\" class='menu' ng-click='menuSlide(comment)'>" +
             "</div>" +
             "<div class='slide' ng-show='comment.slideVisible'>" +
               "<div class='menu-slide' ng-show='showMenuSlide(comment)'>" +
