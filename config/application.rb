@@ -6,14 +6,14 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module AssetsInitializers
-  class Railtie < Rails::Railtie
-    initializer "assets_initializers.initialize_rails",
-                :group => :assets do |app|
-      require "#{Rails.root}/config/initializers/01_ENV_variables.rb"
-    end
-  end
-end
+# module AssetsInitializers
+#   class Railtie < Rails::Railtie
+#     initializer "assets_initializers.initialize_rails",
+#                 :group => :assets do |app|
+#       require "#{Rails.root}/config/initializers/01_ENV_variables.rb"
+#     end
+#   end
+# end
 
 module Grapevime
   class Application < Rails::Application
