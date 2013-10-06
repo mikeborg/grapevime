@@ -5,8 +5,6 @@ require 'faker'
 hashtags = ['#NBAFinals', '#BostonBombing', '#TheBachelor']
 sm_array = ['grapevime', 'twitter', 'facebook']
 
-User.create
-
 primary_comments = Comment.create!([
   # {message: "This is a primary comment. #{Faker::Lorem.paragraph(rand(1..6))} #{hashtags.sample}", sm_type: sm_array.sample},
   #   {message: "This is a primary comment. #{Faker::Lorem.paragraph(rand(1..6))} #{hashtags.sample}", sm_type: sm_array.sample},
