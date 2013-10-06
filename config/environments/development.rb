@@ -1,8 +1,3 @@
-ENV['TWITTER_CONSUMER_KEY'] = "bRaPqfzDDTWIixQ5238lw"
-ENV['TWITTER_CONSUMER_SECRET'] = "tuk4Asn2m8Stp6b3vnns1mayDmX1poTOoNLcFruyjw"
-ENV['TWITTER_OAUTH_TOKEN'] = "274188681-14Lh7t7IEZd1iWAt1Uur8PnyyYz1RnTO6Yd0nhqo"
-ENV['TWITTER_OAUTH_TOKEN_SECRET'] = "M9k3DYz8RYvrh8yHmk3UHClsZLpLkTTxMFsg6yYyC0"
-
 Grapevime::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
