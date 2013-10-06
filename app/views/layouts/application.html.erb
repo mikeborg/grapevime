@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html ng-app="Grapevime" ng-init="currentUser=<%= current_user.to_json %>" >
+<html ng-app="Grapevime">
 <head>
   <title>Grapevime</title>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body ng-controller='MainCtrl'>
+  <% if current_user %>
+    Getting here.
+    <div></div>
+  <% end%>
   <div id='user_nav'>
     Link my:
     <% if current_user.nil? || current_user.twitter_id.nil? %>

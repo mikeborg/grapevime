@@ -31,6 +31,7 @@ Grapevime::Application.routes.draw do
   match 'auth/:provider/callback', to: 'sessions#create', via: :get
   match 'auth/failure', to: redirect('/'), via: :get
   match 'signout', to: 'sessions#destroy', as: 'signout', via: :get
+  match 'simple/vime_template', to: 'simple#vime_template', via: :get
   root to: "simple#index"
   
   # The priority is based upon order of creation: first created -> highest priority.

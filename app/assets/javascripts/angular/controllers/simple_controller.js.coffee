@@ -1,5 +1,5 @@
-App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comment) ->  
-  
+App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($rootScope, $scope, $http, Comment) ->  
+  console.log("SimpleCtrl")
   $scope.liked = (comment) ->
     # $scope.$root.currentUser.id
     false
@@ -26,7 +26,7 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
       comment = Comment.save($scope.newComment, (response) -> 
         console.log("Comment submitted."))
       
-      console.log(comment)
+      #console.log(comment)
       if parentComment.comments == undefined # for comment with no comments
         parentComment.comments = []
       parentComment.comments.unshift(comment)
