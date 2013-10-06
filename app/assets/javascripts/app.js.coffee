@@ -1,4 +1,4 @@
-window.App = angular.module('Grapevime', ['ngResource', 'webStorageModule'])
+window.App = angular.module('Grapevime', ['ngResource'])
 
 # App.config ($httpProvider) ->
 #   authToken = $("meta[name=\"csrf-token\"]").attr("content")

@@ -13,8 +13,8 @@
 // r equire jquery
 //req uire jquery_ujs
 //req uire turbolinks
-// r equire angular
-// r equire angular-bootstrap
-// r equire angular-resource
+//= require angular
+//= require angular-bootstrap
+//= require angular-resource
 //= require app
-// = r equire_tree ./angular
+//= require_tree ./angular

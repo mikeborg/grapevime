@@ -1,5 +1,7 @@
-App.controller 'SearchCtrl', ['$scope', '$http', 'Search', 'webStorage', ($scope, $http, Search, webStorage) ->
+App.controller 'SearchCtrl', ['$scope', '$http', 'Search', ($scope, $http, Search) ->
+  
   #how do I query with search parameters such as ?q=%23BostonBombing
+  
   $scope.search = () ->
     console.log($scope.query)
     $http({
