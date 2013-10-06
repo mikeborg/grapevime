@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+// r equire jquery
 //req uire jquery_ujs
 //req uire turbolinks
 // r equire angular
