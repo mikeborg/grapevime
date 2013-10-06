@@ -34,14 +34,15 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comment.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = current_user.comments.new(comment_params) unless current_user.nil?
+    @comment = Comment.new(comment_params) if current_user.nil?
     respond_to do |format|
       if @comment.save
         current_user.twitter.update(@comment.message) if params[:postTwitter]
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        #format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
-        format.html { render action: "new" }
+        #format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
