@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
+  def authorize
+    render json: {:notice => "You must link your Facebook and/or Twitter account to do this."} if current_user.nil?
+  end
+  
 end

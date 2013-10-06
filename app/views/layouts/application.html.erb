@@ -6,10 +6,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-controller='MainCtrl'>
-  <% if current_user %>
-    Getting here.
-    <div></div>
-  <% end%>
+  <div id="notice" ng-show="showNotice()">
+    {{notice}}<a ng-click="closeNotice()">X</a>
+  </div>
   <div id='user_nav'>
     Link my:
     <% if current_user.nil? || current_user.twitter_id.nil? %>

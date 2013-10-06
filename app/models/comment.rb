@@ -33,10 +33,12 @@ class Comment < ActiveRecord::Base
   end
   
   def report(user)
-    unless CommentsReport.exists?({:comment_id => self.id, :user_id => user.id})
-      self.comments_reports.new(:comment_id => self.id, :user_id => user.id)
-    else
-      puts "This user has already reported this comment."
+    if user # handle the case where there is no user later using cookies or something
+      unless CommentsReport.exists?({:comment_id => self.id, :user_id => user.id})
+        self.comments_reports.new(:comment_id => self.id, :user_id => user.id)
+      else
+        puts "This user has already reported this comment."
+      end
     end
   end
   
@@ -66,10 +68,12 @@ class Comment < ActiveRecord::Base
   end
   
   def close(user)
-    unless CommentsClose.exists?({:comment_id => self.id, :user_id => user.id})
-      self.comments_closes.new(:comment_id => self.id, :user_id => user.id)
-    else
-      puts "This user has already closed this comment."
+    if user # handle the case where there is no user later using cookies or something
+      unless CommentsClose.exists?({:comment_id => self.id, :user_id => user.id})
+        self.comments_closes.new(:comment_id => self.id, :user_id => user.id)
+      else
+        puts "This user has already closed this comment."
+      end
     end
   end
   

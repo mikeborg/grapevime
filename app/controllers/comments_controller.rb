@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authorize, except: [:index, :show, :comments, :close, :report]
   before_action :set_comment, only: [:show, :edit, :update, :destroy, :like, :close, :report, :bookmark, :comments]
   protect_from_forgery except: [:like, :close, :report, :create]
   # GET /comments
@@ -34,7 +35,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comment.json
   def create
-    @comment = current_user.comments.new(comment_params) unless current_user.nil?
+    @comment = Comment.new(comment_params.merge(:user_id => current_user.id)) unless current_user.nil?
     @comment = Comment.new(comment_params) if current_user.nil?
     respond_to do |format|
       if @comment.save

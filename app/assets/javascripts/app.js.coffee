@@ -1,4 +1,6 @@
 window.App = angular.module('Grapevime', ['ngResource'])
+  .run ($rootScope) ->
+    $rootScope.notice = ""
 
 # App.config ($httpProvider) ->
 #   authToken = $("meta[name=\"csrf-token\"]").attr("content")

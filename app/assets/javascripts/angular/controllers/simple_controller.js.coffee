@@ -1,7 +1,6 @@
 App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($rootScope, $scope, $http, Comment) ->  
   console.log("SimpleCtrl")
   $scope.liked = (comment) ->
-    # $scope.$root.currentUser.id
     false
     
   $scope.loadComments = (comment) ->
@@ -22,16 +21,19 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
       false
   
   $scope.addComment = (parentComment) ->
-      $scope.newComment.comment_id = parentComment.id
-      comment = Comment.save($scope.newComment, (response) -> 
-        console.log("Comment submitted."))
-      
-      #console.log(comment)
-      if parentComment.comments == undefined # for comment with no comments
-        parentComment.comments = []
-      parentComment.comments.unshift(comment)
-      $scope.newComment = {}
-      parentComment.slideVisible = false
+    $scope.newComment.comment_id = parentComment.id
+    comment = Comment.save($scope.newComment, (response) ->
+      if(response.notice)
+        $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice)
+      else
+        console.log("Comment submitted.")
+        if parentComment.comments == undefined # for comment with no comments
+          parentComment.comments = []
+        parentComment.comments.unshift(comment)
+        $scope.newComment = {}
+        parentComment.slideVisible = false
+      )
   
   $scope.menuSlide = (comment) ->
     if comment.slideSelect == "menu"
@@ -57,13 +59,10 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/close.json'
-      data: {
-        user_id : $scope.$root.currentUser.id
-      }
     }).success((response) ->
       console.log("closed.. fix .$parent.$parent thing.")
       if comment.comment_id == null # if primary comment
-        $scope.$parent.$parent.conversations.splice(primaryIndex,1) #fix this .$parent.$parent thing.
+        $scope.$parent.$parent.conversations.splice(primaryIndex,1) #fix this .$parent.$parent thing... $rootScope?
         $scope.$parent.$parent.conversations.push(response)
       else
         parentComment.comments.shift()
@@ -74,32 +73,36 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/vime.json'
-      data: {
-        user_id : $scope.$root.currentUser.id
-      }
     }).success((response) ->
-      console.log("Comment vimed.")
+      if(response.notice)
+        $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice)
+      else
+        console.log("Comment vimed.")
     )
   
   $scope.like = (comment) ->
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/like.json'
-      data: {
-        user_id : $scope.$root.currentUser.id
-      }
     }).success((response) ->
-      console.log("Comment liked.")
-    )
+      if(response.notice)
+        $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice)
+      else
+        console.log("Comment liked.")
+    ).error((response) ->
+      console.log(response))
     
   $scope.report = (comment) ->
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/report.json'
-      data: {
-        user_id : $scope.$root.currentUser.id
-      }
     }).success((response) ->
-      console.log("Comment reported.")
+      if(response.notice)
+        $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice)
+      else
+        console.log("Comment reported.")
     )
 ]
