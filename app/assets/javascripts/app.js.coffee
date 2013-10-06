@@ -1,1 +1,1 @@
-window.App = angular.module('Grapevime', ['ngResource'])
+window.App = angular.module('Grapevime', ['ngResource', 'webStorageModule'])

@@ -1,0 +1,5 @@
+TWITTER_CONFIG = YAML.load_file("#{::Rails.root}/config/twitter.yml")[::Rails.env]
+ENV['TWITTER_CONSUMER_KEY'] = TWITTER_CONFIG['consumer_key']
+ENV['TWITTER_CONSUMER_SECRET'] = TWITTER_CONFIG['consumer_secret']
+ENV['TWITTER_OAUTH_TOKEN'] = TWITTER_CONFIG['oauth_token']
+ENV['TWITTER_OAUTH_TOKEN_SECRET'] = TWITTER_CONFIG['oauth_secret']

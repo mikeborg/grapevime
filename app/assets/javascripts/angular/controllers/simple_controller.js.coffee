@@ -1,6 +1,5 @@
 App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comment) ->  
   
-  
   $scope.liked = (comment) ->
     # $scope.$root.currentUser.id
     false
@@ -24,7 +23,9 @@ App.controller 'SimpleCtrl', ['$scope', '$http', 'Comment', ($scope, $http, Comm
   
   $scope.addComment = (parentComment) ->
       $scope.newComment.comment_id = parentComment.id
-      comment = Comment.save($scope.newComment)
+      comment = Comment.save($scope.newComment, (response) -> 
+        console.log("Comment submitted."))
+      
       console.log(comment)
       if parentComment.comments == undefined # for comment with no comments
         parentComment.comments = []

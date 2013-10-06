@@ -36,9 +36,9 @@ class CommentsController < ApplicationController
   # POST /comment.json
   def create
     @comment = Comment.new(comment_params)
-
     respond_to do |format|
       if @comment.save
+        current_user.twitter.update(@comment.message) if params[:postTwitter]
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
@@ -52,21 +52,21 @@ class CommentsController < ApplicationController
     def edit
     end
 
-    # POST /comments
-    # POST /comments.json
-    def create
-      @comment = Comment.new(comment_params)
-
-      respond_to do |format|
-        if @comment.save
-          format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-          format.json { render json: @comment, status: :created, location: @comment }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
-        end
-      end
-    end
+    # # POST /comments
+    # # POST /comments.json
+    # def create
+    #   @comment = Comment.new(comment_params)
+    # 
+    #   respond_to do |format|
+    #     if @comment.save
+    #       format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+    #       format.json { render json: @comment, status: :created, location: @comment }
+    #     else
+    #       format.html { render action: "new" }
+    #       format.json { render json: @comment.errors, status: :unprocessable_entity }
+    #     end
+    #   end
+    # end
 
     # PATCH/PUT /comments/1
     # PATCH/PUT /comments/1.json

@@ -6,10 +6,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div id='user_nav'>
+    Link my:
+    <% if current_user.nil? || current_user.twitter_id.nil? %>
+      <%= link_to "Twitter", "/auth/twitter"%>
+    <% else  %>
+      <%= link_to " @#{current_user.twitter_nickname}", "#" %>
+    <% end %>
+    <% unless current_user.nil? %>
+      <%= link_to " Sign out", signout_path %>
+    <% end%>
+  </div>
 
 <%= yield %>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-route.min.js"></script> -->
+  
   <%= javascript_include_tag "application" %>
 </body>
 </html>

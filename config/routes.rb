@@ -27,6 +27,10 @@ Grapevime::Application.routes.draw do
     end
   end
   
+  match 'simple/index', to: 'simple#index', via: :get
+  match 'auth/:provider/callback', to: 'sessions#create', via: :get
+  match 'auth/failure', to: redirect('/'), via: :get
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: :get
   root to: "simple#index"
   
   # The priority is based upon order of creation: first created -> highest priority.

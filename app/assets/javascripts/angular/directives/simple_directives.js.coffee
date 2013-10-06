@@ -25,8 +25,9 @@ App.directive "vime", ($compile) ->
               "<div class='reply-slide' ng-show='showReplySlide(comment)'>" +
                 "<form ng-submit='addComment(comment)'>" +
                   "<textarea rows='6' cols='28' ng-model='newComment.message'></textarea>" +
+                  "<input style='margin-left:5px;' type='checkbox' ng-model='newComment.postTwitter'>Twitter" +
                   "<input type='hidden' ng-model='newComment.comment_id'>" +
-                  "<input style='margin-left:160px;' type='submit' value='Submit'>" +
+                  "<input style='margin-left:90px;' type='submit' value='Submit'>" +
                 "</form>" +
               "</div>" +
             "</div>" +
