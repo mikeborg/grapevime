@@ -19,7 +19,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+#gem 'jquery-rails'
 gem 'haml-rails', '>= 0.3.4'
 gem 'faker'
 
@@ -38,7 +38,7 @@ gem 'rails_12factor', group: :production
 
 gem 'pg_search'
 
-gem 'twitter'
+#gem 'twitter'
 gem 'omniauth-twitter'
 #gem 'angularjs-rails'
 
