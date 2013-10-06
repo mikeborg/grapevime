@@ -17,4 +17,4 @@
 // r equire angular-bootstrap
 // r equire angular-resource
 //= require app
-//= require_tree ./angular
+// = r equire_tree ./angular
