@@ -1,12 +1,11 @@
-App.controller 'MainCtrl', ['$scope', '$rootScope', ($scope, $rootScope) ->
+App.controller 'MainCtrl', ['$scope', '$rootScope', '$http', 'authService', 'flash', ($scope, $rootScope, $http, authService, flash) ->
   console.log("MainCtrl")
   
-  $scope.showNotice = () ->
-    if $rootScope.notice
-      true
-    else
-      false
-      
-  $scope.closeNotice = () ->
-    $rootScope.notice = null
+  $scope.loggedIn = () ->
+    authService.loginConfirmed()
+    $rootScope.loggedIn = true
+    console.log("Login Confirmed.")
+    
+  $scope.cleanupFlash = () ->
+    flash("AHHHH!")
   ]

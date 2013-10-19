@@ -135,7 +135,7 @@ class Comment < ActiveRecord::Base
     #         #raise
     #       end
     #     end
-    
+    #self.message ||= "" # handle this.. should not submit without message
     scanned_hashtags = self.message.scan(/#\S+/).uniq
     scanned_hashtags.each do |tag|
       hashtag = Hashtag.find_or_initialize_by(tag: tag[1..-1]) #remove leading "#"

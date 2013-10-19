@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
-  def authorize
-    render json: {:notice => "You must link your Facebook and/or Twitter account to do this."} if current_user.nil?
+  def authorize # this needs to return status 401 - alter the JS to handle a 404.
+    render( :nothing => true, :status => :unauthorized) if current_user.nil?
   end
   
 end

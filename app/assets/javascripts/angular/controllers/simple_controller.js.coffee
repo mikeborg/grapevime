@@ -1,4 +1,4 @@
-App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($rootScope, $scope, $http, Comment) ->  
+App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', 'flash', ($rootScope, $scope, $http, Comment, flash) ->  
   console.log("SimpleCtrl")
   $scope.liked = (comment) ->
     false
@@ -22,18 +22,46 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
   
   $scope.addComment = (parentComment) ->
     $scope.newComment.comment_id = parentComment.id
-    comment = Comment.save($scope.newComment, (response) ->
-      if(response.notice)
-        $rootScope.notice = response.notice
-        console.log("Comment: " + response.notice)
-      else
-        console.log("Comment submitted.")
-        if parentComment.comments == undefined # for comment with no comments
-          parentComment.comments = []
-        parentComment.comments.unshift(comment)
-        $scope.newComment = {}
-        parentComment.slideVisible = false
-      )
+    comment = Comment.save($scope.newComment, () ->
+      console.log("Comment submitted.")
+      if parentComment.comments == undefined # for comment with no comments
+        parentComment.comments = []
+      parentComment.comments.unshift(comment)
+      $scope.newComment = {}
+      parentComment.slideVisible = false
+      flash("Message saved.")
+    )
+    
+    
+    # $http(
+    #   method: "POST"
+    #   url: "/comments"
+    #   data: {
+    #     comment: {
+    #       comment_id: parentComment.id
+    #       message: $scope.newComment.message
+    #     }
+    #   }
+    # ).success((data,status,headers,config) ->
+
+    # console.log("Comment successfully submitted.")
+    #       comment = Comment
+    #       if parentComment.comments == undefined # for comment with no comments
+    #         parentComment.comments = []
+    #       parentComment.comments.unshift(comment)
+    #       $scope.newComment = {}
+    #       parentComment.slideVisible = false
+    #     ).error (data,status,headers,config) ->
+    #       console.log "Error adding comment."
+    #       console.log status
+    #       if(status == 401) #this needs to be in a error method
+    #         $rootScope.notice = "You need to sign in through Twitter or Facebook to submit comments."
+    #         console.log("Error: " + status)
+    #       else if (status == 500)
+    #         $rootScope.notice = "Sorry Something went wrong. Please try again."
+    #       false
+      
+
   
   $scope.menuSlide = (comment) ->
     if comment.slideSelect == "menu"
@@ -74,10 +102,10 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/vime.json'
     }).success((response) ->
-      if(response.notice)
-        $rootScope.notice = response.notice
+      if(response.notice)  #this needs to be in a error method
+        # $rootScope.notice = response.notice
         console.log("Comment: " + response.notice)
-      else
+      else  #this needs to be in a success method
         console.log("Comment vimed.")
     )
   
@@ -86,23 +114,22 @@ App.controller 'SimpleCtrl', ['$rootScope', '$scope', '$http', 'Comment', ($root
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/like.json'
     }).success((response) ->
-      if(response.notice)
-        $rootScope.notice = response.notice
-        console.log("Comment: " + response.notice)
-      else
-        console.log("Comment liked.")
+      console.log("Comment liked.")
     ).error((response) ->
-      console.log(response))
+      console.log("Error: " + response)
+      if(response.notice)
+        # $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice))
     
   $scope.report = (comment) ->
     $http({
       method : 'PUT'
       url : '/api/comments/' + comment.id + '/report.json'
     }).success((response) ->
-      if(response.notice)
-        $rootScope.notice = response.notice
-        console.log("Comment: " + response.notice)
-      else
-        console.log("Comment reported.")
-    )
+      console.log("Comment reported.")
+    ).error((response) ->
+      console.log("Error: " + response)
+      if(response.notice)  #this needs to be in an error method
+        # $rootScope.notice = response.notice
+        console.log("Comment: " + response.notice))
 ]

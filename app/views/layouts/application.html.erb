@@ -3,16 +3,22 @@
 <head>
   <title>Grapevime</title>
   <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js" %>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js" %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-controller='MainCtrl'>
-  <div id="notice" ng-show="showNotice()">
-    {{notice}}<a ng-click="closeNotice()">X</a>
-  </div>
+<% if current_user.nil? %>
+  <body ng-controller='MainCtrl'>
+<% else %>
+  <body ng-controller='MainCtrl' ng-init='loggedIn()'>
+<% end %>
+  <flash:messages></flash:messages>
   <div id='user_nav'>
     Link my:
     <% if current_user.nil? || current_user.twitter_id.nil? %>
-      <%= link_to "Twitter", "/auth/twitter"%>
+      <%= link_to "Twitter", "/auth/twitter" %>
+      <%#= link_to "Twitter", "", { 'ng-click' => 'twitterLogin()' } %>
+      <div ng-init='authService.loginConfirmed()'></div>
     <% else  %>
       <%= link_to " @#{current_user.twitter_nickname}", "#" %>
     <% end %>

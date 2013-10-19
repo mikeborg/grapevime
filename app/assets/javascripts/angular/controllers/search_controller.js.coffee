@@ -6,7 +6,7 @@ App.controller 'SearchCtrl', ['$scope', '$http', 'Search', ($scope, $http, Searc
     console.log("SearchCtrl -> Search()")
     $http({
       method : 'GET'
-      url : '/api/search/?q=' + $scope.query
+      url : '/api/search.json/?q=' + $scope.query
     }).success((response) ->
       $scope.conversations = response
       #console.log($scope.conversations)

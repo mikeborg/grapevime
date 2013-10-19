@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924030832) do
+ActiveRecord::Schema.define(version: 20131019051736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,12 @@ ActiveRecord::Schema.define(version: 20130924030832) do
   end
 
   add_index "hashtags_comments", ["comment_id", "hashtag_id"], name: "index_hashtags_comments_on_comment_id_and_hashtag_id", unique: true, using: :btree
+
+  create_table "searches", force: true do |t|
+    t.string   "q"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.integer  "twitter_id"
