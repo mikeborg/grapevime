@@ -11,7 +11,7 @@ class CreateComments < ActiveRecord::Migration
       t.string :sm_screen_name
       t.string :sm_user_id
       t.string :sm_status_id
-      t.string :source_data
+      t.text :source_data
       t.text :message
       #Twitter specific
       t.integer :tw_retweet_count
@@ -19,6 +19,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :tw_user_followers_count
       t.integer :tw_user_favorites_count
       t.integer :tw_user_statuses_count
+      t.string :tw_in_reply_to_status_id
       #Facebook specific
       #t.integer :facebook_id
       #Grapevime specific

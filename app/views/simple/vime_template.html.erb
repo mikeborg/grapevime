@@ -2,7 +2,7 @@
   <a><img src='/assets/vime-icon.png' class='vime' ng-click='vime(comment)'></a>
   <a class='boxclose' ng-click="close(comment, $parent.comment, index)"></a>
 </div>
-<div class='body'>{{ comment.message }}
+<div class='body'>{{ comment.message }}<br/>{{comment.sm_screen_name}}
 </div>
 <div class='footer'>
   <img ng-src="{{liked(comment) == true && '/assets/thumb-icon-green.png' || '/assets/thumb-icon-gray.png'}}" class='like' ng-click='like(comment)' />

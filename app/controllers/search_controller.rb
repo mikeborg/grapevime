@@ -65,20 +65,11 @@ class SearchController < ApplicationController
     @search = Search.new(search_params)
     respond_to do |format|
       if @search.save
-        tweets = current_user.twitter.search(search_params[:q])
-        tweets.statuses.each do |tweet|
-          Comment.create!(sm_type: 'twitter',
-                          sm_screen_name: tweet.user.screen_name,
-                          sm_user_id: tweet.user.id,
-                          sm_status_id: tweet.id,
-                          source_data: tweet.to_s,
-                          tw_retweet_count: tweet.retweet_count,
-                          tw_favorite_count: tweet.favorite_count,
-                          tw_user_followers_count: tweet.user.followers_count,
-                          tw_user_favorites_count: tweet.user.favorites_count,
-                          tw_user_statuses_count: tweet.user.statuses_count,
-                          message: tweet.text
-                          )
+        if current_user
+          tweets = current_user.twitter.search(search_params[:q], :count => 25)#, :result_type => "recent")
+          tweets.statuses.each do |tweet|
+            create_or_update_comment_from_tweet(tweet)
+          end
         end
         @search.results = Comment.search_messages(search_params[:q])
         format.json { render json: @search.to_json(:include => :conversations) }#Comment.joins(:hashtags).where(comment_id: nil, hashtags: { id: hashtags } ).to_json } #:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
@@ -89,6 +80,37 @@ class SearchController < ApplicationController
   end
   
   private
+    def create_or_update_comment_from_tweet(tweet)
+      unless tweet.retweeted #don't create Comment records from retweets
+        comment = Comment.where(sm_type: 'twitter').find_or_initialize_by(sm_status_id: "#{tweet.id}")
+        comment.sm_screen_name = tweet.user.screen_name # Never alter :sm_screen_name
+        comment.sm_user_id = tweet.user.id
+        comment.source_data = tweet.to_json #fix this: entry in DB is just the object name
+        comment.tw_retweet_count = tweet.retweet_count
+        comment.tw_favorite_count = tweet.favorite_count
+        comment.tw_user_followers_count = tweet.user.followers_count
+        comment.tw_user_favorites_count = tweet.user.favorites_count
+        comment.tw_user_statuses_count = tweet.user.statuses_count
+        comment.message = tweet.text # Never alter :message
+        
+        # create parent relationship
+        if tweet.in_reply_to_status_id
+          begin
+          comment.tw_in_reply_to_status_id = "#{tweet.in_reply_to_status_id}"
+          parent_tweet = current_user.twitter.status("#{tweet.in_reply_to_status_id}")
+          create_or_update_comment_from_tweet(parent_tweet)
+          rescue
+          end
+        end
+        
+        #search for parent tweet using tweet.in_reply_to_status_id_str
+        parent_comment = Comment.where(sm_type: 'twitter', sm_status_id: "#{tweet.in_reply_to_status_id}").first
+        
+        comment.comment_id = parent_comment.id if parent_comment
+        comment.save!
+      end
+    end
+        
     def set_comment
       @comments = Comment.search_text(search_params[:terms])
     end
