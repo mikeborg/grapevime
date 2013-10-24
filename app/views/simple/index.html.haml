@@ -2,8 +2,8 @@
   %div{'ng-controller' => "SearchCtrl"}
     #search
       %form
-        %input{'name' => 'input', 'ng-model' => "query"}
+        %input{'name' => 'input', 'ng-model' => "newSearch.q"}
         %input{'type' => 'submit', 'ng-click' => 'search()', 'value' => "Search"}
     #conversations-container
-      .conversation-box{'ng-repeat' => 'primaryComment in conversations.slice(0,5)'}
+      .conversation-box{'ng-repeat' => 'primaryComment in searchResults.conversations.slice(0,5)'}
         %vime{'comment' => 'primaryComment', 'index' => '$index'}

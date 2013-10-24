@@ -15,7 +15,8 @@ Grapevime::Application.routes.draw do
   end
   
   scope :api do 
-    get "/search(.:format)" => "search#index"
+    # post "/search(.:format)" => "search#index"
+    resources :search
     resources :comments do 
       member do
         put 'like'

@@ -1,5 +1,7 @@
 class SearchController < ApplicationController
   #before_action :set_comment, only: [:test]
+  protect_from_forgery except: [:create]
+  
   require 'json'
   def test
     #conversations = Comment.search_for_conversations(params[:q])
@@ -59,10 +61,30 @@ class SearchController < ApplicationController
     end
   end
   
-  def index
-    hashtags = Hashtag.search_tags(params[:q])
+  def create
+    @search = Search.new(search_params)
     respond_to do |format|
-      format.json { render json: Comment.joins(:hashtags).where(comment_id: nil, hashtags: { id: hashtags.first } ).to_json } #:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
+      if @search.save
+        tweets = current_user.twitter.search(search_params[:q])
+        tweets.statuses.each do |tweet|
+          Comment.create!(sm_type: 'twitter',
+                          sm_screen_name: tweet.user.screen_name,
+                          sm_user_id: tweet.user.id,
+                          sm_status_id: tweet.id,
+                          source_data: tweet.to_s,
+                          tw_retweet_count: tweet.retweet_count,
+                          tw_favorite_count: tweet.favorite_count,
+                          tw_user_followers_count: tweet.user.followers_count,
+                          tw_user_favorites_count: tweet.user.favorites_count,
+                          tw_user_statuses_count: tweet.user.statuses_count,
+                          message: tweet.text
+                          )
+        end
+        @search.results = Comment.search_messages(search_params[:q])
+        format.json { render json: @search.to_json(:include => :conversations) }#Comment.joins(:hashtags).where(comment_id: nil, hashtags: { id: hashtags } ).to_json } #:include => [:comments => {:include => [:comments => {:include => [:comments]}]}]  )}
+      else
+        format.json { render json: @search.errors, status: :unprocessable_entity }
+      end
     end
   end
   
@@ -72,6 +94,6 @@ class SearchController < ApplicationController
     end
     
     def search_params
-      params.require(:search).permit(:terms)
+      params.require(:search).permit(:q)
     end
 end

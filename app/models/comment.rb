@@ -121,6 +121,21 @@ class Comment < ActiveRecord::Base
     end
   end
   
+  def self.search_messages(query)
+    
+    if query.present?
+      search(query)
+      rank = <<-RANK
+        ts_rank(to_tsvector(message), plainto_tsquery(#{sanitize(query)}))
+      RANK
+      #ts_rank(to_tsvector(attags.tag), plainto_tsquery(#{sanitize(query)})) +
+      #ts_rank(to_tsvector(hashtags.tag), plainto_tsquery(#{sanitize(query)}))
+      where(:comment_id => nil).where("to_tsvector('english', message) @@ plainto_tsquery('english', :q)", q: query).order("#{rank} desc").limit(8)  
+    else
+      scoped
+    end
+  end
+  
   # !!! eventually parse message for tags client-side !!!
   def parse_for_and_associate_tags
     # scanned_attags = self.message.scan(/@\S+/)
